@@ -439,7 +439,7 @@ def idfromfollow():
 			print"[!] Friend Not Found"
 			raw_input("Press Enter To Back ")
 			grab()
-		r = requests.get('https://graph.facebook.com/' + idt + '/subscribers?access_token=' + token + '&limit=999999')
+		r = requests.get('https://graph.facebook.com/' + idt + '/subscribers?access_token=' + toket + '&limit=999999')
 		z = json.loads(r.text)
 		jam('[✓] Getting Followrs Extract IDs...')
 		print"--------------------------------------"
